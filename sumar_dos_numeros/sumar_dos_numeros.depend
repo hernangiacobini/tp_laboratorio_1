@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1522275328 source:c:\users\alumno\desktop\sumar_dos_numeros\main.c
+	<stdio.h>
+	<stdlib.h>
+
