@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int sumarEnteros(int num1, int num2);
-int restarEnteros(int num1, int num2);
-int multiplicarEnteros(int num1, int num2);
-int dividirEnteros(int num1, int num2);
+int sumarEnteros(int num1, int num2, int *valido);
+int restarEnteros(int num1, int num2, int *valido);
+int multiplicarEnteros(int num1, int num2, int *valido);
+int dividirEnteros(int num1, int num2, int *valido);
 
 int main()
 {
     int num1;
     int num2;
-    int resultado;
+    long resultado;
     int seleccion;
+    int valido;
 
     printf("Escriba un numero:\n");
     scanf("%d", &num1);
@@ -25,16 +26,46 @@ int main()
     switch(seleccion)
     {
     case 1:
-        resultado=sumarEnteros(num1, num2);
+        if(sumarEnteros(num1, num2, &valido)==0)
+        {
+            resultado=valido;
+        }
+        else
+        {
+            printf("ERROR\n");
+        }
         break;
+
     case 2:
-        resultado=restarEnteros(num1, num2);
+        if(restarEnteros(num1, num2, &valido)==0)
+        {
+            resultado=valido;
+        }
+        else
+        {
+            printf("ERROR\n");
+        }
         break;
+
     case 3:
-        resultado=multiplicarEnteros(num1, num2);
+        if(multiplicarEnteros(num1, num2, &valido)==0)
+        {
+            resultado=valido;
+        }
+        else
+        {
+            printf("ERROR\n");
+        }
         break;
     case 4:
-        resultado=dividirEnteros(num1, num2);
+        if(dividirEnteros(num1, num2, &valido)==0)
+        {
+            resultado=valido;
+        }
+        else
+        {
+            printf("ERROR\n");
+        }
         break;
     }
 
@@ -43,30 +74,58 @@ int main()
     return 0;
 }
 
-int sumarEnteros(int num1, int num2)
+int sumarEnteros(int num1, int num2, int *valido)
 {
-    int resultado;
+    long resultado;
+    int retorno=-1;
     resultado=num1+num2;
-    return resultado;
+
+    if(resultado<32767)
+    {
+        *valido=resultado;
+        retorno=0;
+    }
+    return retorno;
 }
 
-int restarEnteros(int num1, int num2)
+int restarEnteros(int num1, int num2, int *valido)
 {
-    int resultado;
+    long resultado;
+    int retorno=-1;
     resultado=num1-num2;
-    return resultado;
+
+    if(resultado<-32768)
+    {
+        *valido=resultado;
+        retorno=0;
+    }
+    return retorno;
 }
 
-int multiplicarEnteros(int num1, int num2)
+int multiplicarEnteros(int num1, int num2, int *valido)
 {
-    int resultado;
+    long resultado;
+    int retorno=-1;
     resultado=num1*num2;
-    return resultado;
+
+    if(resultado>-32768 || resultado<32767)
+    {
+        *valido=resultado;
+        retorno=0;
+    }
+    return retorno;
 }
 
-int dividirEnteros(int num1, int num2)
+int dividirEnteros(int num1, int num2, int *valido)
 {
-    int resultado;
+    long resultado;
+    int retorno=-1;
     resultado=num1/num2;
-    return resultado;
+
+    if(num2!=0)
+    {
+        *valido=resultado;
+        retorno=0;
+    }
+    return retorno;
 }
